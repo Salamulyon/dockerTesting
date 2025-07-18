@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -12,7 +15,9 @@ func main() {
 
 	m.HandleFunc("/", handlePage)
 
-	const port = "8010"
+	godotenv.Load(".env")
+	port := os.Getenv("PORT")
+
 	srv := http.Server{
 		Handler:      m,
 		Addr:         ":" + port,
